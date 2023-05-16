@@ -35,14 +35,13 @@ class JVMHookResourceReaper extends ResourceReaper {
             .filter(it -> "label".equals(it.getKey()))
             .map(Map.Entry::getValue)
             .toArray(String[]::new);
-        switch (pruneType) {
+        if (pruneType) {
             // Docker only prunes stopped containers, so we have to do it manually
-            case CONTAINERS:
-                List<Container> containers = dockerClient
-                    .listContainersCmd()
-                    .withFilter("label", Arrays.asList(labels))
-                    .withShowAll(true)
-                    .exec();
+            List<Container> containers = dockerClient
+                .listContainersCmd()
+                .withFilter("label", Arrays.asList(labels))
+                .withShowAll(true)
+                .exec();
 
                 containers
                     .parallelStream()
@@ -53,10 +52,10 @@ class JVMHookResourceReaper extends ResourceReaper {
                             .withRemoveVolumes(true)
                             .exec();
                     });
-                break;
-            default:
+                
+                else {
                 dockerClient.pruneCmd(pruneType).withLabelFilter(labels).exec();
-                break;
+            }
         }
     }
 }

@@ -35,7 +35,7 @@ class JVMHookResourceReaper extends ResourceReaper {
             .filter(it -> "label".equals(it.getKey()))
             .map(Map.Entry::getValue)
             .toArray(String[]::new);
-        if (pruneType) {
+        if (pruneType.equals(CONTAINERS)) {
             // Docker only prunes stopped containers, so we have to do it manually
             List<Container> containers = dockerClient
                 .listContainersCmd()

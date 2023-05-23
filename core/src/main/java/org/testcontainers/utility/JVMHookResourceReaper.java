@@ -55,8 +55,10 @@ class JVMHookResourceReaper extends ResourceReaper {
                 
                 
             }
-        }
-        else {
+            else {
                 dockerClient.pruneCmd(pruneType).withLabelFilter(labels).exec();
+            }
+        }
+        
     }
-}
+

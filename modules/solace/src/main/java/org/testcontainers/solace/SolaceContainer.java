@@ -178,6 +178,7 @@ public class SolaceContainer extends GenericContainer<SolaceContainer> {
             }
         } catch (IOException | InterruptedException e) {
             logCommandError(e.getMessage(), command);
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -195,6 +196,7 @@ public class SolaceContainer extends GenericContainer<SolaceContainer> {
                     return execInContainer(command).getStdout().contains(waitingFor);
                 } catch (IOException | InterruptedException e) {
                     logCommandError(e.getMessage(), command);
+                    Thread.currentThread().interrupt();
                     return true;
                 }
             });

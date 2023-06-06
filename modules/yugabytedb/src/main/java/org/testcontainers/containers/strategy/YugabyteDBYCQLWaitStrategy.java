@@ -62,10 +62,6 @@ public final class YugabyteDBYCQLWaitStrategy extends AbstractWaitStrategy {
                         } catch (Exception e) {
                             status.set(false);
                             log.debug(e.getMessage(), e);
-                        } finally {
-                            if (!status.getAndSet(true)) {
-                                throw new RuntimeException("container hasn't come up yet");
-                            }
                         }
                     });
                 return status;

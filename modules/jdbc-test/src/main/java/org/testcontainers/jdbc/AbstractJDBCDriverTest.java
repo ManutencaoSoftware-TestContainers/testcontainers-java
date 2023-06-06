@@ -34,13 +34,17 @@ public class AbstractJDBCDriverTest {
     public EnumSet<Options> options;
 
     public static void sampleInitFunction(Connection connection) throws SQLException {
+        Statement statement = null;
+
         try{
-            connection.createStatement().execute("CREATE TABLE bar (\n" + "  foo VARCHAR(255)\n" + ");");
-            connection.createStatement().execute("INSERT INTO bar (foo) VALUES ('hello world');");
-            connection.createStatement().execute("CREATE TABLE my_counter (\n" + "  n INT\n" + ");");
+            statement = connection.createStatement();
+            statement.execute("CREATE TABLE bar (\n" + "  foo VARCHAR(255)\n" + ");");
+            statement.execute("INSERT INTO bar (foo) VALUES ('hello world');");
+            statement.execute("CREATE TABLE my_counter (\n" + "  n INT\n" + ");");
         }catch(Exception e){
 
         } finally {
+            statement.close();
             connection.close();
         }
     }

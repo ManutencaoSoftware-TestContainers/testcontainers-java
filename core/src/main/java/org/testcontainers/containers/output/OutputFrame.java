@@ -47,6 +47,8 @@ public class OutputFrame {
                     return 1;
                 case '\n':
                     return ((bytes.length > 1) && (bytes[bytes.length - 2] == '\r')) ? 2 : 1;
+                default:
+                    return 0;
             }
         }
         return 0;

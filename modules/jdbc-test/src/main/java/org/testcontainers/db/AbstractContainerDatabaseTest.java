@@ -14,12 +14,17 @@ public abstract class AbstractContainerDatabaseTest {
 
     protected ResultSet performQuery(JdbcDatabaseContainer<?> container, String sql) throws SQLException {
         DataSource ds = getDataSource(container);
-        Statement statement = ds.getConnection().createStatement();
-        statement.execute(sql);
-        ResultSet resultSet = statement.getResultSet();
+        try{
+            Statement statement = ds.getConnection().createStatement();
+            statement.execute(sql);
+            ResultSet resultSet = statement.getResultSet();
 
-        resultSet.next();
-        return resultSet;
+            resultSet.next();
+            return resultSet;
+        } catch (Exception e) {
+        }finally {
+            statement.close();
+        }
     }
 
     protected DataSource getDataSource(JdbcDatabaseContainer<?> container) {

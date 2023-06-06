@@ -44,7 +44,13 @@ public class AbstractJDBCDriverTest {
         }catch(Exception e){
 
         } finally {
-            statement.close();
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+        
+                }
+            }
             connection.close();
         }
     }

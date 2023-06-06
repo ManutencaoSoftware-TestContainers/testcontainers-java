@@ -202,7 +202,7 @@ public class OracleContainer extends JdbcDatabaseContainer<OracleContainer> {
         withEnv("ORACLE_PASSWORD", password);
 
         // Only set ORACLE_DATABASE if different than the default.
-        if (databaseName != DEFAULT_DATABASE_NAME) {
+        if (!databaseName.equals(DEFAULT_DATABASE_NAME)) {
             withEnv("ORACLE_DATABASE", databaseName);
         }
 

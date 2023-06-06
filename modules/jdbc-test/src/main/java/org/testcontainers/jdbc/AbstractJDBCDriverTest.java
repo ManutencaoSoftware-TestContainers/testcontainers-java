@@ -36,8 +36,8 @@ public class AbstractJDBCDriverTest {
     public static void sampleInitFunction(Connection connection) throws SQLException {
         Statement statement = null;
 
-        try{
-            statement = connection.createStatement();
+        try(statement = connection.createStatement()){
+           
             statement.execute("CREATE TABLE bar (\n" + "  foo VARCHAR(255)\n" + ");");
             statement.execute("INSERT INTO bar (foo) VALUES ('hello world');");
             statement.execute("CREATE TABLE my_counter (\n" + "  n INT\n" + ");");
